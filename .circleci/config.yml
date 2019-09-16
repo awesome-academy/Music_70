@@ -9,7 +9,7 @@ jobs:
       # This is Android review pull request box (Not necessary to change)
       ROOM_ID: "96370317"
       # Insert the chatwork accounts which you want to mention when the pull request was verified
-      MEMBERS: "[To:2110258] Doan Van Toan"
+      MEMBERS: "[To:4030996] Nguyen Chinh Tho"
     steps:
       - checkout
       - restore_cache:
