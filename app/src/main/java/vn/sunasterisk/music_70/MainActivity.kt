@@ -1,12 +1,20 @@
 package vn.sunasterisk.music_70
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import vn.sunasterisk.music_70.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+    override val getContentViewId = R.layout.activity_main
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun initData(savedInstanceState: Bundle?) {
+    }
+
+    override fun initComponents() {
+    }
+
+    override fun registerListeners() {
+    }
+
+    override fun unregisterListeners() {
     }
 }
