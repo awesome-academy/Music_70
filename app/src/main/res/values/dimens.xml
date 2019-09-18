@@ -8,4 +8,6 @@
     <dimen name="dp_32">32dp</dimen>
     <dimen name="dp_64">64dp</dimen>
     <dimen name="dp_128">128dp</dimen>
+    <dimen name="dp_164">164dp</dimen>
+    <dimen name="dp_80">80dp</dimen>
 </resources>

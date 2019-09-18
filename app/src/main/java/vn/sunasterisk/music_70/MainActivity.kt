@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import vn.sunasterisk.music_70.base.BaseActivity
+import vn.sunasterisk.music_70.constant.Constant
 import vn.sunasterisk.music_70.ui.chart.ChartFragment
 import vn.sunasterisk.music_70.ui.discover.DiscoverFragment
 import vn.sunasterisk.music_70.ui.mymusic.MyMusicFragment
