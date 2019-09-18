@@ -28,5 +28,4 @@ class ChartFragment : BaseFragment(){
     companion object {
         fun newInstance() = ChartFragment()
     }
-
 }
