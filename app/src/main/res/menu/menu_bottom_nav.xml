@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/menu_my_music"
+            android:icon="@drawable/ic_my_music"
+            android:title="My music"/>
+
+    <item
+            android:id="@+id/menu_discover"
+            android:icon="@drawable/ic_dicovery"
+            android:title="Discover"/>
+
+    <item
+            android:id="@+id/menu_chart"
+            android:icon="@drawable/ic_chart"
+            android:title="Chart"/>
+
+    <item
+            android:id="@+id/menu_user"
+            android:icon="@drawable/ic_user"
+            android:title="User"/>
+
+    <item
+            android:id="@+id/menu_setting"
+            android:icon="@drawable/ic_setting"
+            android:title="Setting"/>
+
+</menu>
