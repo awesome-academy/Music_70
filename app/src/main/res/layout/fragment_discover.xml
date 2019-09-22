@@ -1,34 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.mymusic.MyMusicFragment">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.mymusic.MyMusicFragment">
 
     <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/guideline"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3"/>
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65"/>
     <androidx.viewpager.widget.ViewPager
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/viewPagerTop"/>
+        android:id="@+id/viewPagerTop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <LinearLayout
-            android:id="@+id/linearDots"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_32"
-            android:gravity="end"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/linearDots"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_32"
+        android:gravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
     </LinearLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginStart="@dimen/dp_8"
+        android:textStyle="bold"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:text="@string/string_suggeted_playlist"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerGenre"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_8"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/dp_8"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        tools:listitem="@layout/item_genre"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
