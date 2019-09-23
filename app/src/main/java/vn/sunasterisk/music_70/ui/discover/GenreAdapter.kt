@@ -29,15 +29,17 @@ class GenreAdapter (val onItemClicked: (genres: Genre) -> Unit): RecyclerView.Ad
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bindView(item: Genre) {
-            itemView.apply {
-                textTitle.text = item.nameGenre
-                LoadImage.loadImageFromDrawable(imageGenres,item.imageGenre)
-            }
+        init {
             itemView.setOnClickListener {
                 onItemClicked.invoke(listGenre[adapterPosition])
             }
         }
 
+        fun bindView(item: Genre) {
+            itemView.apply {
+                textTitle.text = item.nameGenre
+                LoadImage.loadImageFromDrawable(imageGenres,item.imageGenre)
+            }
+        }
     }
 }

@@ -7,13 +7,13 @@ import java.lang.Exception
 
 interface GenreContract {
     interface View {
-        fun showTrack(tracks: List<Track>)
+        fun showTrack(tracks: List<Track>, isTrending: Boolean)
 
         fun showError(exception: Exception)
     }
 
     interface Presenter {
-        fun getTrack(api: String)
+        fun getTrack(api: String, isTrending: Boolean)
         fun getListGenre(context: Context): List<Genre>
     }
 }

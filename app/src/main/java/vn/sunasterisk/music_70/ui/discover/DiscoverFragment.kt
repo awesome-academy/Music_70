@@ -29,27 +29,41 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
 
     private lateinit var listGenre: List<Genre>
 
+    private lateinit var listSongAdapter: ListSongAdapter
+
     override val getContentViewId = R.layout.fragment_discover
 
     override fun initData(savedInstanceState: Bundle?) {
     }
 
     override fun initComponents() {
-        val apiTop = StringUtils.generateGenreUrl(Constant.KIND_TOP, Constant.GENRES_ALL_MUSIC, 10, 10)
+        val apiTop =
+            StringUtils.generateGenreUrl(Constant.KIND_TOP, Constant.GENRES_ALL_MUSIC, 10, 10)
+        val apiTrending =
+            StringUtils.generateTredingUrl(Constant.KIND_TRENDING, Constant.GENRES_COUNTRY)
         tracksRepository = TrackRepository.getInstance(
             RemoteDataSource.getInstance(context!!),
             LocalDataSource.getInstance(context!!)
         )
         genrePresent = GenrePresenter(tracksRepository, this)
-        genrePresent.getTrack(apiTop)
+        genrePresent.getTrack(apiTop, false)
         sliderTrackAdapter = SliderTrackAdapter()
         viewPagerTop.adapter = sliderTrackAdapter
         timer = Timer()
 
-        listGenre=genrePresent.getListGenre(context!!)
-        attachAdapterToRecyclerView(recyclerGenre,GenreAdapter {
-            Toast.makeText(context!!,it.nameGenre,Toast.LENGTH_SHORT).show()
+        listGenre = genrePresent.getListGenre(context!!)
+        attachAdapterToSuggetedPlaylist(recyclerGenre, GenreAdapter {
+            Toast.makeText(context!!, it.nameGenre, Toast.LENGTH_SHORT).show()
         })
+
+        genrePresent.getTrack(apiTrending, true)
+
+        listSongAdapter = ListSongAdapter({
+            Toast.makeText(context, it.artist, Toast.LENGTH_LONG).show()
+        }, {
+        })
+        attachAdapterToListSong(recycleSong, listSongAdapter)
+
     }
 
     override fun registerListeners() {
@@ -57,7 +71,11 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
             }
 
             override fun onPageSelected(position: Int) {
@@ -65,37 +83,52 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
             }
         })
         sliderTrackAdapter.setOnItemClicked {
-            Toast.makeText(context,it.title, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, it.title, Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun attachAdapterToRecyclerView(recyclerView: RecyclerView, genresAdapter: GenreAdapter) {
+    private fun attachAdapterToSuggetedPlaylist(
+        recyclerView: RecyclerView,
+        genresAdapter: GenreAdapter
+    ) {
         genresAdapter.updateGenre(context?.let { genrePresent.getListGenre(it) } as MutableList<Genre>)
         with(recyclerView) {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             adapter = genresAdapter
         }
-
     }
+
+    private fun attachAdapterToListSong(
+        recyclerView: RecyclerView,
+        listSongAdapter: ListSongAdapter
+    ) {
+        recyclerView.apply{
+                adapter = listSongAdapter
+        }
+    }
+
     override fun unregisterListeners() {
     }
 
-    override fun showTrack(tracks: List<Track>) {
-        sliderTrackAdapter.updateTrack(tracks as MutableList<Track>)
-        timer.schedule(object : TimerTask() {
-            override fun run() {
+    override fun showTrack(tracks: List<Track>, isTrending: Boolean) {
+        if (!isTrending) {
+            sliderTrackAdapter.updateTrack(tracks as MutableList<Track>)
+            timer.schedule(object : TimerTask() {
+                override fun run() {
 
-                activity?.runOnUiThread {
-                    viewPagerTop?.let {
-                        var index = it.currentItem + 1 % sliderTrackAdapter.count
-                        if (index == sliderTrackAdapter.count) {
-                            index = 0
+                    activity?.runOnUiThread {
+                        viewPagerTop?.let {
+                            var index = it.currentItem + NEXT_COUNT % sliderTrackAdapter.count
+                            if (index == sliderTrackAdapter.count) {
+                                index = 0
+                            }
+                            viewPagerTop.setCurrentItem(index, true)
                         }
-                        viewPagerTop.setCurrentItem(index, true)
                     }
                 }
-            }
-        }, TIME_DELAY, TIME_PERIOD)
+            }, TIME_DELAY, TIME_PERIOD)
+        } else {
+            listSongAdapter.updateList(tracks)
+        }
     }
 
     private fun addDotIndicator(postion: Int) {
@@ -122,9 +155,10 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
     }
 
     companion object {
-        const val TIME_DELAY= 1000L
-        const val TIME_PERIOD= 5000L
-        const val TEXT_SIZE= 35F
+        const val NEXT_COUNT= 1
+        const val TIME_DELAY = 1000L
+        const val TIME_PERIOD = 5000L
+        const val TEXT_SIZE = 35F
         fun newInstance() = DiscoverFragment()
     }
 }

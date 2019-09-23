@@ -6,6 +6,7 @@ object Constant {
     const val BASE_SEARCH_URL = "?q=%s&client_id=%s&limit=%d&offset=%d"
     const val BASE_DOWNLOAD_URL = "/%d/download?client_id=%s"
     const val BASE_STREAM_URL = "/%d/stream?client_id=%s"
+    const val BASE_TRENDING_URL = "https://api-v2.soundcloud.com/charts?kind=%s&genre=%s&client_id=%s"
     const val PLAYLIST = "https://api.soundcloud.com/playlists?client_id=%s"
     const val GENRES_COUNTRY = "soundcloud:genres:country"
     const val GENRES_ALL_MUSIC = "soundcloud:genres:all-music"
@@ -17,4 +18,5 @@ object Constant {
     const val IMAGE_FULL = "t500x500"
     const val IMAGE_SMALL = "small"
     const val KIND_TOP = "top"
+    const val KIND_TRENDING= "trending"
 }
