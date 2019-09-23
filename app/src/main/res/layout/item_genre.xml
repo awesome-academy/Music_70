@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageGenres"
+        android:layout_width="@dimen/dp_148"
+        android:layout_height="@dimen/dp_148"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="@dimen/dp_4"
+        android:src="@drawable/bg_default_image"
+        android:contentDescription="null"/>
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageGenres"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        style="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="@+id/imageGenres"
+        app:layout_constraintStart_toStartOf="@+id/imageGenres"
+        app:layout_constraintTop_toBottomOf="@id/imageGenres"
+        tools:text="All audio"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_silde.view.*
 import vn.sunasterisk.music_70.R
 import vn.sunasterisk.music_70.data.model.Track
+import vn.sunasterisk.music_70.util.LoadImage
 import vn.sunasterisk.music_70.util.StringUtils
 
 class SliderTrackAdapter() : PagerAdapter() {
@@ -40,7 +41,7 @@ class SliderTrackAdapter() : PagerAdapter() {
             track.artist?.let {
                 textDescription.text = it
             }
-            Glide.with(itemView).load(track.artworkUrl?.let { StringUtils.reformatImageUrl(it) }).into(imageTrack)
+            track.artworkUrl?.let { LoadImage.loadImage(imageTrack, it) }
         }
     }
 

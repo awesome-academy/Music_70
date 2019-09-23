@@ -1,63 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageSlideBackground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:alpha="0.9"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_slider"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="null"/>
 
     <ImageView
-            android:id="@+id/imageSlideBackground"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:alpha="0.9"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_slider"
-            app:layout_constraintDimensionRatio="2:1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-            android:id="@+id/imageTrack"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_80"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginBottom="@dimen/dp_16"
-            android:src="@drawable/bg_default_image"
-            app:layout_constraintBottom_toBottomOf="@id/imageSlideBackground"
-            app:layout_constraintStart_toStartOf="parent"/>
+        android:id="@+id/imageTrack"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:src="@drawable/bg_default_image"
+        app:layout_constraintBottom_toBottomOf="@id/imageSlideBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="null"/>
 
     <TextView
-            android:id="@+id/textNameTrack"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:layout_marginRight="@dimen/dp_8"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageTrack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageTrack"
-            app:layout_constraintTop_toTopOf="@id/imageTrack"
-            tools:text="Đi đua đưa đi"/>
+        android:id="@+id/textNameTrack"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTrack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageTrack"
+        app:layout_constraintTop_toTopOf="@id/imageTrack"
+        tools:text="Đi đua đưa đi"/>
 
     <TextView
-            android:id="@+id/textDescription"
-            style="@style/TextAppearance.AppCompat.Small"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:layout_marginRight="@dimen/dp_8"
-            android:ellipsize="marquee"
-            android:textIsSelectable="true"
-            android:maxLines="2"
-            android:textColor="@color/color_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageTrack"
-            app:layout_constraintTop_toBottomOf="@id/textNameTrack"
-            tools:text="Hot hot hot"/>
+        android:id="@+id/textDescription"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
+        android:ellipsize="marquee"
+        android:textIsSelectable="true"
+        android:maxLines="2"
+        android:textColor="@color/color_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageTrack"
+        app:layout_constraintTop_toBottomOf="@id/textNameTrack"
+        tools:text="Hot hot hot"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

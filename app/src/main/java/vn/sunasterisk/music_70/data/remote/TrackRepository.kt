@@ -1,5 +1,7 @@
 package vn.sunasterisk.music_70.data.remote
 
+import android.content.Context
+import vn.sunasterisk.music_70.data.model.Genre
 import vn.sunasterisk.music_70.data.model.Track
 
 class TrackRepository(
@@ -9,6 +11,10 @@ class TrackRepository(
 
     override fun getRemoteTracks(api: String, callback: TrackDataSource.TrackCallback<List<Track>>) {
         remote.getRemoteTracks(api, callback)
+    }
+
+    override fun getRemoteGenres(context: Context):List<Genre> {
+       return remote.getRemoteGenres(context)
     }
 
     companion object {

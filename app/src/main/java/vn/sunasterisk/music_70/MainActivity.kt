@@ -35,7 +35,7 @@ class MainActivity : BaseActivity() {
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item?.itemId) {
+        when (item.itemId) {
             R.id.menu_my_music -> {
                 addFragment(supportFragmentManager, MyMusicFragment.newInstance(), false)
                 return@OnNavigationItemSelectedListener true
@@ -66,7 +66,7 @@ class MainActivity : BaseActivity() {
         fragmentManager: FragmentManager, fragment: Fragment,
         isAddFragment: Boolean
     ) {
-        val currentFragment = fragmentManager.findFragmentByTag(fragment::class.java.name) as Fragment?
+        val currentFragment = fragmentManager.findFragmentByTag(fragment::class.java.name)
         val transaction = fragmentManager.beginTransaction()
         currentFragment?.let {
             if (currentFragment.isVisible) return

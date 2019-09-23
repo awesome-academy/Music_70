@@ -2,5 +2,16 @@
     <string name="app_name">NCT Ultra</string>
     <string name="string_error">Fail to load data</string>
     <string name="string_html"><![CDATA[&#8226]]></string>
-
+    <string name="string_all_music">All music</string>
+    <string name="string_audio">All audio</string>
+    <string name="string_ambient">Ambient</string>
+    <string name="string_contry">Country</string>
+    <string name="string_rock">Rock</string>
+    <string name="string_classical">Classical</string>
+    <string name="string_suggeted_playlist">SUGGESTED PLAYLIST</string>
+    <string name="string_my_music">My music</string>
+    <string name="string_discover">Discover</string>
+    <string name="string_chart">Chart</string>
+    <string name="string_user">User</string>
+    <string name="string_setting">Setting</string>
 </resources>

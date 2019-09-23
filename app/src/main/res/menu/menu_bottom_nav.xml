@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
             android:id="@+id/menu_my_music"
             android:icon="@drawable/ic_my_music"
-            android:title="My music"/>
-
+            android:title="@string/string_my_music"/>
     <item
             android:id="@+id/menu_discover"
             android:icon="@drawable/ic_dicovery"
-            android:title="Discover"/>
-
+            android:title="@string/string_discover"/>
     <item
             android:id="@+id/menu_chart"
             android:icon="@drawable/ic_chart"
-            android:title="Chart"/>
-
+            android:title="@string/string_chart"/>
     <item
             android:id="@+id/menu_user"
             android:icon="@drawable/ic_user"
-            android:title="User"/>
-
+            android:title="@string/string_user"/>
     <item
             android:id="@+id/menu_setting"
             android:icon="@drawable/ic_setting"
-            android:title="Setting"/>
-
+            android:title="@string/string_setting"/>
 </menu>
