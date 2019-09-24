@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_genre.view.*
 import vn.sunasterisk.music_70.R
 import vn.sunasterisk.music_70.data.model.Genre
+import vn.sunasterisk.music_70.data.model.Track
 import vn.sunasterisk.music_70.util.LoadImage
 
 class GenreAdapter (val onItemClicked: (genres: Genre) -> Unit): RecyclerView.Adapter<GenreAdapter.ViewHolder>(){

@@ -16,4 +16,5 @@
     <string name="string_setting">Setting</string>
     <string name="string_song">SONG</string>
     <string name="string_now_playing">NOW PLAYING</string>
+    <string name="string_time_start">00:00</string>
 </resources>

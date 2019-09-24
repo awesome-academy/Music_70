@@ -45,7 +45,7 @@ class SliderTrackAdapter() : PagerAdapter() {
         }
     }
 
-    fun getTracks() = listTrack
+    fun getListData() = listTrack
 
     fun updateTrack(data: MutableList<Track>) {
         listTrack = data

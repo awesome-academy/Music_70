@@ -24,6 +24,9 @@ android {
     androidExtensions {
         experimental = true
     }
+    lintOptions {
+        disable 'IconLocation'
+    }
 }
 
 dependencies {

@@ -38,8 +38,8 @@
 
     <ImageView
         android:id="@+id/imageSong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_256"
+        android:layout_height="@dimen/dp_256"
         android:contentDescription="@string/app_name"
         android:src="@drawable/bg_default_image"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,14 +51,15 @@
 
     <TextView
         android:id="@+id/textSongName"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp_200"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/dp_16"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonOption"
+        app:layout_constraintStart_toEndOf="@+id/buttonFavourite"
         app:layout_constraintTop_toBottomOf="@+id/imageSong"
         tools:text="@tools:sample/first_names" />
 
@@ -80,12 +81,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_32"
         android:layout_marginBottom="@dimen/dp_16"
+        android:text="@string/string_time_start"
         android:textColor="@color/color_white"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/buttonPrevious"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="0:00" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/buttonNext"
