@@ -57,7 +57,7 @@
             tools:listitem="@layout/item_genre" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textSongName"
             style="@android:style/TextAppearance.DeviceDefault.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,11 +77,11 @@
             android:layout_marginEnd="@dimen/dp_8"
             android:layout_marginBottom="@dimen/dp_8"
             android:nestedScrollingEnabled="false"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/textSongName"
             tools:listitem="@layout/item_song" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

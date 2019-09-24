@@ -15,4 +15,5 @@
     <string name="string_user">User</string>
     <string name="string_setting">Setting</string>
     <string name="string_song">SONG</string>
+    <string name="string_now_playing">NOW PLAYING</string>
 </resources>

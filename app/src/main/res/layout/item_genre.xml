@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:padding="@dimen/dp_4"
         android:src="@drawable/bg_default_image"
-        android:contentDescription="null"/>
+        android:contentDescription="@string/app_name"/>
 
     <TextView
         android:id="@+id/textTitle"
