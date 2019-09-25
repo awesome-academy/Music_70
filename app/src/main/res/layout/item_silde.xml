@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:alpha="0.9"
-        android:contentDescription="null"
+        android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
         android:src="@drawable/bg_slider"
         app:layout_constraintDimensionRatio="2:1"
@@ -23,7 +23,7 @@
         android:layout_height="@dimen/dp_80"
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_16"
-        android:contentDescription="null"
+        android:contentDescription="@string/app_name"
         android:src="@drawable/bg_default_image"
         app:layout_constraintBottom_toBottomOf="@id/imageSlideBackground"
         app:layout_constraintStart_toStartOf="parent" />
