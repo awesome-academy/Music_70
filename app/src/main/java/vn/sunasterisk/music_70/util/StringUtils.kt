@@ -1,5 +1,6 @@
 package vn.sunasterisk.music_70.util
 
+import android.provider.SyncStateContract
 import vn.sunasterisk.music_70.BuildConfig
 import vn.sunasterisk.music_70.constant.Constant
 
@@ -18,6 +19,9 @@ object StringUtils {
             limit,
             offset
         )
+    fun generateTredingUrl(kind: String, genre: String): String =
+        String.format(Constant.BASE_TRENDING_URL, kind, genre, BuildConfig.API_KEY)
+
 
     fun generateDownloadUrl(trackId: Long) =
         String.format(Constant.BASE_HEADER_URL.plus(Constant.BASE_DOWNLOAD_URL), trackId, BuildConfig.API_KEY)
