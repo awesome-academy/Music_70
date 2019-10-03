@@ -9,8 +9,10 @@ import vn.sunasterisk.music_70.R
 import vn.sunasterisk.music_70.data.model.Track
 import vn.sunasterisk.music_70.util.LoadImage
 
-class ListSongAdapter(private val onItemClicked: (track: Track) -> Unit, private val optionClick: (track: Track) -> Unit) :
-    RecyclerView.Adapter<ListSongAdapter.ViewHolder>() {
+class ListSongAdapter(
+    val onItemClicked: (List<Track>, Int) -> Unit,
+    val optionClick: (Track) -> Unit
+) : RecyclerView.Adapter<ListSongAdapter.ViewHolder>() {
     private var listSong = emptyList<Track>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -20,18 +22,18 @@ class ListSongAdapter(private val onItemClicked: (track: Track) -> Unit, private
         listSong = data
         notifyDataSetChanged()
     }
-    fun getListData():List<Track> = listSong
 
     override fun getItemCount() = listSong.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bindView(listSong[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bindView(listSong[position])
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.apply {
                 textSongName.setOnClickListener {
                     textSongName.isSelected = true
-                    onItemClicked.invoke(listSong[adapterPosition])
+                    onItemClicked.invoke(listSong, adapterPosition)
                 }
                 imageOption.setOnClickListener {
                     optionClick.invoke(listSong[adapterPosition])

@@ -47,7 +47,12 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
         )
         genrePresent = GenrePresenter(tracksRepository, this)
         genrePresent.getTrack(apiTop, false)
-        sliderTrackAdapter = SliderTrackAdapter()
+        sliderTrackAdapter = SliderTrackAdapter({ tracks, index ->
+            startActivity(
+                NowPlayingActivity.getIntent(requireContext(), tracks, index)
+            )
+
+        })
         viewPagerTop.adapter = sliderTrackAdapter
         timer = Timer()
 
@@ -58,13 +63,15 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
 
         genrePresent.getTrack(apiTrending, true)
 
-        listSongAdapter = ListSongAdapter({
-            val index= listSongAdapter.getListData().indexOf(it)
-            startActivity(NowPlayingActivity.getIntent(requireContext(), listSongAdapter.getListData(),index))
+        listSongAdapter = ListSongAdapter({ tracks, index ->
+            startActivity(
+                NowPlayingActivity.getIntent(
+                    requireContext(), tracks, index
+                )
+            )
         }, {
         })
         attachAdapterToListSong(recycleSong, listSongAdapter)
-
     }
 
     override fun registerListeners() {
@@ -83,10 +90,6 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
                 addDotIndicator(position)
             }
         })
-        sliderTrackAdapter.setOnItemClicked {
-            val index= sliderTrackAdapter.getListData().indexOf(it)
-            startActivity(NowPlayingActivity.getIntent(requireContext(), listSongAdapter.getListData(),index))
-        }
     }
 
     private fun attachAdapterToSuggetedPlaylist(
@@ -103,9 +106,7 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
         recyclerView: RecyclerView,
         listSongAdapter: ListSongAdapter
     ) {
-        recyclerView.apply{
-                adapter = listSongAdapter
-        }
+        recyclerView.adapter = listSongAdapter
     }
 
     override fun unregisterListeners() {
@@ -157,7 +158,7 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
     }
 
     companion object {
-        const val NEXT_COUNT= 1
+        const val NEXT_COUNT = 1
         const val TIME_DELAY = 1000L
         const val TIME_PERIOD = 5000L
         const val TEXT_SIZE = 35F

@@ -8,7 +8,9 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.*
 import android.view.View
+import android.widget.SeekBar
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_now_playing.*
 import vn.sunasterisk.music_70.R
 import vn.sunasterisk.music_70.base.BaseActivity
@@ -16,23 +18,27 @@ import vn.sunasterisk.music_70.data.model.Track
 import vn.sunasterisk.music_70.data.remote.TrackAttributes
 import vn.sunasterisk.music_70.service.MediaService
 import vn.sunasterisk.music_70.service.PlayingMusicListener
-import vn.sunasterisk.music_70.util.LoadImage
-import vn.sunasterisk.music_70.util.StateType
-import vn.sunasterisk.music_70.util.StringUtils
-import java.util.ArrayList
+import vn.sunasterisk.music_70.util.*
+import java.util.*
 
-class NowPlayingActivity : BaseActivity(), View.OnClickListener, PlayingMusicListener {
+class NowPlayingActivity : BaseActivity(),
+    View.OnClickListener,
+    PlayingMusicListener,
+    SeekBar.OnSeekBarChangeListener {
 
     private var state = 0
     private lateinit var mediaService: MediaService
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             val binder = service as MediaService.BinderService
-            mediaService = binder.getService()
-            mediaService.setOnListenerMusic(this@NowPlayingActivity)
-            mediaService.setCurrentTrack(getTrackReceived())
-            mediaService.playMusic(getTrackReceived())
-            updateUI(getTrackReceived())
+
+            mediaService = binder.getService().apply {
+                getListTrack()?.let { addTracks(it) }
+                setOnListenerMusic(this@NowPlayingActivity)
+                getTrackReceived()?.let { setCurrentTrack(it) }
+                getTrackReceived()?.let { playMusic(it) }
+            }
+            getTrackReceived()?.let { updateUI(it) }
             updateCurrentTime()
             rotateTheDisk()
         }
@@ -41,10 +47,11 @@ class NowPlayingActivity : BaseActivity(), View.OnClickListener, PlayingMusicLis
         }
     }
 
-    private fun getTrackReceived() =
-        intent.getParcelableArrayListExtra<Track>(TrackAttributes.TRACK)[getPositionTrack()]
+    private fun getListTrack() = intent?.getParcelableArrayListExtra<Track>(TrackAttributes.TRACK)
 
-    private fun getPositionTrack() = intent.getIntExtra(POSITION_TRACK, 0)
+    private fun getTrackReceived() = getPositionTrack()?.let { getListTrack()?.get(it) }
+
+    private fun getPositionTrack() = intent?.getIntExtra(POSITION_TRACK, 0)
 
     override fun onPlayingStateListener(state: Int) {
         this.state = state
@@ -67,6 +74,7 @@ class NowPlayingActivity : BaseActivity(), View.OnClickListener, PlayingMusicLis
         buttonPrevious.setOnClickListener(this)
         buttonLoop.setOnClickListener(this)
         buttonShuffe.setOnClickListener(this)
+        seekSongProcess.setOnSeekBarChangeListener(this)
     }
 
     override fun unregisterListeners() {
@@ -91,34 +99,31 @@ class NowPlayingActivity : BaseActivity(), View.OnClickListener, PlayingMusicLis
         textSongName.text = track.title
         textArtist.text = track.artist
         track.artworkUrl?.let { LoadImage.loadImageCircleCrop(imageSong, it) }
-        textSongDuration.text =
-            mediaService.getDuration().let { StringUtils.convertTime(it) }
+        textSongDuration.text = track.duration.let { StringUtils.convertTime(it) }
     }
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.buttonPlay -> {
-                mediaService.playOrPauseTrack()
-            }
+            R.id.buttonPlay -> if(::mediaService.isInitialized) mediaService.playOrPauseTrack()
 
             R.id.buttonPrevious -> {
+                if(::mediaService.isInitialized) mediaService.previousTrack()
+                updateUI(mediaService.getCurrentTrack())
             }
 
             R.id.buttonNext -> {
+                if(::mediaService.isInitialized) mediaService.nextTrack()
+                updateUI(mediaService.getCurrentTrack())
             }
 
-            R.id.buttonShuffe -> {
-            }
+            R.id.buttonShuffe -> handleShuffle()
 
-            R.id.buttonLoop -> {
-            }
+            R.id.buttonLoop -> handleLoop()
 
             R.id.buttonFavourite -> {
             }
 
-            R.id.buttonBack -> {
-                onBackPressed()
-            }
+            R.id.buttonBack -> onBackPressed()
 
             R.id.buttonOption -> {
             }
@@ -126,7 +131,7 @@ class NowPlayingActivity : BaseActivity(), View.OnClickListener, PlayingMusicLis
     }
 
     private fun updateCurrentTime() {
-        seekSongProcess.max = mediaService.getDuration() / TIME_SECOND
+        seekSongProcess.max = getTrackReceived()!!.duration / TIME_SECOND
         val handlerSyncTime = Handler()
         handlerSyncTime.postDelayed(object : Runnable {
             override fun run() {
@@ -153,6 +158,47 @@ class NowPlayingActivity : BaseActivity(), View.OnClickListener, PlayingMusicLis
                     super.onAnimationEnd(animation)
                 }
             })
+    }
+
+    private fun handleShuffle() {
+        when (mediaService.shuffleType) {
+            ShuffleType.NO -> {
+                mediaService.shuffleType=ShuffleType.YES
+                buttonShuffe.setColorFilter(ActivityCompat.getColor(this, R.color.color_accent))
+            }
+            ShuffleType.YES -> {
+                mediaService.shuffleType=ShuffleType.NO
+                buttonShuffe.setColorFilter(ActivityCompat.getColor(this, R.color.color_gray))
+            }
+        }
+    }
+
+    private fun handleLoop() {
+        when (mediaService.loopType) {
+            LoopType.NO -> {
+                mediaService.loopType=LoopType.ALL
+                buttonLoop.setColorFilter(ActivityCompat.getColor(this, R.color.color_accent))
+            }
+            LoopType.ALL -> {
+                mediaService.loopType=LoopType.ONE
+                buttonLoop.setImageResource(R.drawable.ic_loop_one)
+            }
+            LoopType.ONE -> {
+                mediaService.loopType=LoopType.NO
+                buttonLoop.setImageResource(R.drawable.ic_loop)
+                buttonLoop.setColorFilter(ActivityCompat.getColor(this, R.color.color_gray))
+            }
+        }
+    }
+
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        if (fromUser) mediaService.seekMusic(progress * TIME_SECOND)
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
     }
 
     companion object {
