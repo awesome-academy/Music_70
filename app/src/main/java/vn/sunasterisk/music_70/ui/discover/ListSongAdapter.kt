@@ -20,6 +20,7 @@ class ListSongAdapter(private val onItemClicked: (track: Track) -> Unit, private
         listSong = data
         notifyDataSetChanged()
     }
+    fun getListData():List<Track> = listSong
 
     override fun getItemCount() = listSong.size
 

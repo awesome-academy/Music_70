@@ -1,8 +1,8 @@
 package vn.sunasterisk.music_70.util
 
-import android.provider.SyncStateContract
 import vn.sunasterisk.music_70.BuildConfig
 import vn.sunasterisk.music_70.constant.Constant
+import java.text.SimpleDateFormat
 
 object StringUtils {
     fun generateGenreUrl(kind: String, genre: String, limit: Int, offset: Int) =
@@ -19,6 +19,13 @@ object StringUtils {
             limit,
             offset
         )
+
+    fun convertTime(time: Int): String {
+        val format = SimpleDateFormat("mm:ss")
+        return format.format(time)
+
+    }
+
     fun generateTredingUrl(kind: String, genre: String): String =
         String.format(Constant.BASE_TRENDING_URL, kind, genre, BuildConfig.API_KEY)
 

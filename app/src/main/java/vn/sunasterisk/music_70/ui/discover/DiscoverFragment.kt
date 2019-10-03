@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Html
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.fragment_discover.*
@@ -16,6 +15,7 @@ import vn.sunasterisk.music_70.data.model.Genre
 import vn.sunasterisk.music_70.data.model.Track
 import vn.sunasterisk.music_70.data.remote.RemoteDataSource
 import vn.sunasterisk.music_70.data.remote.TrackRepository
+import vn.sunasterisk.music_70.ui.nowplaying.NowPlayingActivity
 import vn.sunasterisk.music_70.util.StringUtils
 import java.util.*
 
@@ -59,7 +59,8 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
         genrePresent.getTrack(apiTrending, true)
 
         listSongAdapter = ListSongAdapter({
-            Toast.makeText(context, it.artist, Toast.LENGTH_LONG).show()
+            val index= listSongAdapter.getListData().indexOf(it)
+            startActivity(NowPlayingActivity.getIntent(requireContext(), listSongAdapter.getListData(),index))
         }, {
         })
         attachAdapterToListSong(recycleSong, listSongAdapter)
@@ -83,7 +84,8 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
             }
         })
         sliderTrackAdapter.setOnItemClicked {
-            Toast.makeText(context, it.title, Toast.LENGTH_LONG).show()
+            val index= sliderTrackAdapter.getListData().indexOf(it)
+            startActivity(NowPlayingActivity.getIntent(requireContext(), listSongAdapter.getListData(),index))
         }
     }
 
@@ -114,7 +116,6 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
             sliderTrackAdapter.updateTrack(tracks as MutableList<Track>)
             timer.schedule(object : TimerTask() {
                 override fun run() {
-
                     activity?.runOnUiThread {
                         viewPagerTop?.let {
                             var index = it.currentItem + NEXT_COUNT % sliderTrackAdapter.count
@@ -128,6 +129,7 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
             }, TIME_DELAY, TIME_PERIOD)
         } else {
             listSongAdapter.updateList(tracks)
+
         }
     }
 
@@ -138,7 +140,7 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
         for (i in 0 until sliderTrackAdapter.count) {
             mDots.add(TextView(context))
             mDots[i].apply {
-                setText(Html.fromHtml(context.getString(R.string.string_html)))
+                text = Html.fromHtml(context.getString(R.string.string_html))
                 textSize = TEXT_SIZE
                 setTextColor(resources.getColor(R.color.color_tranparent_white))
             }

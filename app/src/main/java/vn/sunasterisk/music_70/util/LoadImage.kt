@@ -23,4 +23,13 @@ object LoadImage {
             .into(image)
 
     }
+
+    fun loadImageCircleCrop(image: ImageView, link: String) {
+        Glide.with(image.context)
+            .load(StringUtils.reformatImageUrl(link))
+            .circleCrop()
+            .fallback(R.drawable.bg_default_image)
+            .error(R.drawable.bg_default_image)
+            .into(image)
+    }
 }
