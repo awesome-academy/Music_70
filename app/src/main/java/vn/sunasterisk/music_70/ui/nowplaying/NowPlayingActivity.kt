@@ -104,15 +104,15 @@ class NowPlayingActivity : BaseActivity(),
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.buttonPlay -> if(::mediaService.isInitialized) mediaService.playOrPauseTrack()
+            R.id.buttonPlay -> if (::mediaService.isInitialized) mediaService.playOrPauseTrack()
 
             R.id.buttonPrevious -> {
-                if(::mediaService.isInitialized) mediaService.previousTrack()
+                if (::mediaService.isInitialized) mediaService.previousTrack()
                 updateUI(mediaService.getCurrentTrack())
             }
 
             R.id.buttonNext -> {
-                if(::mediaService.isInitialized) mediaService.nextTrack()
+                if (::mediaService.isInitialized) mediaService.nextTrack()
                 updateUI(mediaService.getCurrentTrack())
             }
 
@@ -126,6 +126,9 @@ class NowPlayingActivity : BaseActivity(),
             R.id.buttonBack -> onBackPressed()
 
             R.id.buttonOption -> {
+                BottomSheetFragment
+                    .newInstance(mediaService.getCurrentTrack())
+                    .show(supportFragmentManager, BottomSheetFragment::class.java.name)
             }
         }
     }
@@ -163,11 +166,11 @@ class NowPlayingActivity : BaseActivity(),
     private fun handleShuffle() {
         when (mediaService.shuffleType) {
             ShuffleType.NO -> {
-                mediaService.shuffleType=ShuffleType.YES
+                mediaService.shuffleType = ShuffleType.YES
                 buttonShuffe.setColorFilter(ActivityCompat.getColor(this, R.color.color_accent))
             }
             ShuffleType.YES -> {
-                mediaService.shuffleType=ShuffleType.NO
+                mediaService.shuffleType = ShuffleType.NO
                 buttonShuffe.setColorFilter(ActivityCompat.getColor(this, R.color.color_gray))
             }
         }
@@ -176,15 +179,15 @@ class NowPlayingActivity : BaseActivity(),
     private fun handleLoop() {
         when (mediaService.loopType) {
             LoopType.NO -> {
-                mediaService.loopType=LoopType.ALL
+                mediaService.loopType = LoopType.ALL
                 buttonLoop.setColorFilter(ActivityCompat.getColor(this, R.color.color_accent))
             }
             LoopType.ALL -> {
-                mediaService.loopType=LoopType.ONE
+                mediaService.loopType = LoopType.ONE
                 buttonLoop.setImageResource(R.drawable.ic_loop_one)
             }
             LoopType.ONE -> {
-                mediaService.loopType=LoopType.NO
+                mediaService.loopType = LoopType.NO
                 buttonLoop.setImageResource(R.drawable.ic_loop)
                 buttonLoop.setColorFilter(ActivityCompat.getColor(this, R.color.color_gray))
             }
