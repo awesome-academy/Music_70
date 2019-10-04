@@ -21,6 +21,8 @@ object StringUtils {
             offset
         )
 
+    fun appendString(elementFrist: String, elementSecond: String) = elementFrist + elementSecond
+
     fun convertTime(time: Int): String {
         val format = SimpleDateFormat("mm:ss", Locale.getDefault())
         return format.format(time)
@@ -30,8 +32,28 @@ object StringUtils {
         String.format(Constant.BASE_TRENDING_URL, kind, genre, BuildConfig.API_KEY)
 
     fun generateDownloadUrl(trackId: Long) =
-        String.format(Constant.BASE_HEADER_URL.plus(Constant.BASE_DOWNLOAD_URL), trackId, BuildConfig.API_KEY)
+        String.format(
+            Constant.BASE_HEADER_URL.plus(Constant.BASE_DOWNLOAD_URL),
+            trackId,
+            BuildConfig.API_KEY
+        )
 
     fun generateStreamUrl(trackId: Int) =
-        String.format(Constant.BASE_HEADER_URL.plus(Constant.BASE_STREAM_URL), trackId, BuildConfig.API_KEY)
+        String.format(
+            Constant.BASE_HEADER_URL.plus(Constant.BASE_STREAM_URL),
+            trackId,
+            BuildConfig.API_KEY
+        )
+
+    fun passCount(count: Int): String {
+        if (count > 1000000) {
+            val tmp = count.toDouble() / 100000
+            return String.format(Locale.US, "%.1fM", tmp)
+        }
+        if (count > 1000) {
+            val tmp = count.toDouble() / 1000
+            return String.format(Locale.US, "%.1fK", tmp)
+        }
+        return count.toString()
+    }
 }
