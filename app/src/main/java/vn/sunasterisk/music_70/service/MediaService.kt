@@ -7,6 +7,7 @@ import android.os.Binder
 import vn.sunasterisk.music_70.data.model.Track
 import vn.sunasterisk.music_70.util.LoopType
 import vn.sunasterisk.music_70.util.ShuffleType
+import vn.sunasterisk.music_70.util.ShuffleType.Companion.NO
 import vn.sunasterisk.music_70.util.StateType
 import java.util.*
 
@@ -19,6 +20,18 @@ class MediaService : Service(), HandlerListenerPlayMusic {
     private lateinit var binder: BinderService
     private lateinit var currentTrack: Track
     private lateinit var playingMusicListener: PlayingMusicListener
+
+    var shuffleType: Int
+        get() = managerPlayingMusic.shuffleType
+        set(value) {
+            managerPlayingMusic.shuffleType = value
+        }
+
+    var loopType: Int
+        get() = managerPlayingMusic.loopType
+        set(value) {
+            managerPlayingMusic.loopType = value
+        }
 
     override fun onCreate() {
         super.onCreate()
@@ -34,7 +47,7 @@ class MediaService : Service(), HandlerListenerPlayMusic {
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
-        when (managerPlayingMusic.loopType) {
+        when (loopType) {
             LoopType.ONE -> managerPlayingMusic.setLooping()
             LoopType.ALL -> nextTrack()
             else -> {
@@ -110,7 +123,7 @@ class MediaService : Service(), HandlerListenerPlayMusic {
     }
 
     fun nextTrack() {
-        if (managerPlayingMusic.shuffleType == ShuffleType.NO) {
+        if (shuffleType == NO) {
             currentTrack = getNextTrack()
             managerPlayingMusic.changeTrack(getNextTrack(), this)
             addListener(getNextTrack())
@@ -126,6 +139,12 @@ class MediaService : Service(), HandlerListenerPlayMusic {
         return listTrack[random.nextInt(listTrack.size)]
     }
 
+    fun getCurrentTrack() = currentTrack
+
+    fun seekMusic(duration: Int) {
+        managerPlayingMusic.seek(duration)
+    }
+
     override fun onBind(intent: Intent) = binder
 
     inner class BinderService : Binder() {
@@ -134,6 +153,6 @@ class MediaService : Service(), HandlerListenerPlayMusic {
 
     companion object {
         const val NUMBER_NEXT_SONG = 1
-        const val ELEMENT_FIRST= 0
+        const val ELEMENT_FIRST = 0
     }
 }
