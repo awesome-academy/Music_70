@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dp_64">
+
+    <ImageView
+        android:id="@+id/imageSong"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_default_image" />
+
+    <TextView
+        android:id="@+id/textSongName"
+        style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageSong"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textArtist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginEnd="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageSong"
+        app:layout_constraintTop_toBottomOf="@+id/textSongName" />
+
+    <ImageView
+        android:id="@+id/imagAddToPlaylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageSong"
+        app:srcCompat="@drawable/ic_add_to_playlist" />
+
+    <TextView
+        android:id="@+id/textAddToPlaylist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:text="@string/string_add_to_playlist"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imagAddToPlaylist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagAddToPlaylist"
+        app:layout_constraintTop_toTopOf="@+id/imagAddToPlaylist" />
+
+    <ImageView
+        android:id="@+id/imageInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagAddToPlaylist"
+        app:srcCompat="@drawable/ic_infor" />
+
+    <TextView
+        android:id="@+id/textInformation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:text="@string/string_information"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageInformation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageInformation"
+        app:layout_constraintTop_toTopOf="@+id/imageInformation" />
+
+    <ImageView
+        android:id="@+id/imageDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageInformation"
+        app:srcCompat="@drawable/ic_download" />
+
+    <TextView
+        android:id="@+id/textDownload"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:text="@string/string_download"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageDownload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageDownload"
+        app:layout_constraintTop_toTopOf="@+id/imageDownload" />
+
+    <ImageView
+        android:id="@+id/imageAddToFavourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageDownload"
+        app:srcCompat="@drawable/ic_favourited" />
+
+    <TextView
+        android:id="@+id/textAddToFavourite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:contentDescription="@string/app_name"
+        android:text="@string/string_add_to_favorite"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageAddToFavourite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageAddToFavourite"
+        app:layout_constraintTop_toTopOf="@+id/imageAddToFavourite" />
+
+    <TextView
+        android:id="@+id/textShare"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:text="@string/string_share"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageShare"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageShare"
+        app:layout_constraintTop_toTopOf="@+id/imageShare" />
+
+    <ImageView
+        android:id="@+id/imageShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageAddToFavourite"
+        app:srcCompat="@drawable/ic_share" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@ import vn.sunasterisk.music_70.data.model.Genre
 import vn.sunasterisk.music_70.data.model.Track
 import vn.sunasterisk.music_70.data.remote.RemoteDataSource
 import vn.sunasterisk.music_70.data.remote.TrackRepository
+import vn.sunasterisk.music_70.ui.nowplaying.BottomSheetFragment
 import vn.sunasterisk.music_70.ui.nowplaying.NowPlayingActivity
 import vn.sunasterisk.music_70.util.StringUtils
 import java.util.*
@@ -70,6 +71,11 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
                 )
             )
         }, {
+            fragmentManager?.let { fragment
+                ->
+                BottomSheetFragment.newInstance(it)
+                    .show(fragment, BottomSheetFragment::class.java.name)
+            }
         })
         attachAdapterToListSong(recycleSong, listSongAdapter)
     }
