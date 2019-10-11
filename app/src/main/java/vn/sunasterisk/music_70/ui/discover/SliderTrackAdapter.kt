@@ -35,7 +35,7 @@ class SliderTrackAdapter(val onItemClicked: (List<Track>, Int) -> Unit) : PagerA
             track.artist?.let {
                 textDescription.text = it
             }
-            track.artworkUrl?.let { LoadImage.loadImage(imageTrack, it) }
+            track.artworkUrl?.let { LoadImage.loadImage(imageSong, it) }
         }
     }
 

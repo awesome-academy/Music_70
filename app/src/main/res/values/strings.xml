@@ -22,4 +22,5 @@
     <string name="string_download">Download</string>
     <string name="string_add_to_favorite">Add to favorite</string>
     <string name="string_share">Share</string>
+    <string name="string_upload_date">Upload Date:</string>
 </resources>

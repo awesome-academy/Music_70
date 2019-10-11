@@ -19,4 +19,5 @@ object Constant {
     const val IMAGE_SMALL = "small"
     const val KIND_TOP = "top"
     const val KIND_TRENDING= "trending"
+    const val TRACKS_DIRECTORY = "tracks"
 }
