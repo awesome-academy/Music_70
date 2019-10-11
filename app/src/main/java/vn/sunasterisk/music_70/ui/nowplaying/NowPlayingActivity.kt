@@ -6,7 +6,10 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.*
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.IBinder
 import android.view.View
 import android.widget.SeekBar
 import androidx.annotation.RequiresApi
@@ -15,11 +18,9 @@ import kotlinx.android.synthetic.main.activity_now_playing.*
 import vn.sunasterisk.music_70.R
 import vn.sunasterisk.music_70.base.BaseActivity
 import vn.sunasterisk.music_70.data.model.Track
-import vn.sunasterisk.music_70.data.remote.TrackAttributes
 import vn.sunasterisk.music_70.service.MediaService
 import vn.sunasterisk.music_70.service.PlayingMusicListener
 import vn.sunasterisk.music_70.util.*
-import java.util.*
 
 class NowPlayingActivity : BaseActivity(),
     View.OnClickListener,
@@ -31,14 +32,14 @@ class NowPlayingActivity : BaseActivity(),
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             val binder = service as MediaService.BinderService
-
             mediaService = binder.getService().apply {
-                getListTrack()?.let { addTracks(it) }
                 setOnListenerMusic(this@NowPlayingActivity)
-                getTrackReceived()?.let { setCurrentTrack(it) }
-                getTrackReceived()?.let { playMusic(it) }
             }
-            getTrackReceived()?.let { updateUI(it) }
+            if (mediaService.idTrackPlaying!=currentTrack.id){
+                mediaService.playMusic(currentTrack)
+                mediaService.idTrackPlaying=currentTrack.id
+            }
+            updateUI(currentTrack)
             updateCurrentTime()
             rotateTheDisk()
         }
@@ -47,11 +48,7 @@ class NowPlayingActivity : BaseActivity(),
         }
     }
 
-    private fun getListTrack() = intent?.getParcelableArrayListExtra<Track>(TrackAttributes.TRACK)
-
-    private fun getTrackReceived() = getPositionTrack()?.let { getListTrack()?.get(it) }
-
-    private fun getPositionTrack() = intent?.getIntExtra(POSITION_TRACK, 0)
+    private val currentTrack get() = mediaService.getCurrentTrack()
 
     override fun onPlayingStateListener(state: Int) {
         this.state = state
@@ -64,6 +61,7 @@ class NowPlayingActivity : BaseActivity(),
     }
 
     override fun onTrackChangedListener(track: Track) {
+        updateUI(track)
     }
 
     override fun registerListeners() {
@@ -92,7 +90,7 @@ class NowPlayingActivity : BaseActivity(),
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindService(getMediaService(this), connection, Context.BIND_AUTO_CREATE)
+        bindService(MediaService.getService(this), connection, Context.BIND_AUTO_CREATE)
     }
 
     fun updateUI(track: Track) {
@@ -134,7 +132,7 @@ class NowPlayingActivity : BaseActivity(),
     }
 
     private fun updateCurrentTime() {
-        seekSongProcess.max = getTrackReceived()!!.duration / TIME_SECOND
+        seekSongProcess.max = currentTrack.duration / TIME_SECOND
         val handlerSyncTime = Handler()
         handlerSyncTime.postDelayed(object : Runnable {
             override fun run() {
@@ -207,15 +205,6 @@ class NowPlayingActivity : BaseActivity(),
     companion object {
         const val TIME_SECOND = 1000
         const val TIME_DELAY = 1000L
-        const val POSITION_TRACK = "POSITION_TRACK"
-        fun getMediaService(context: Context) = Intent(context, MediaService::class.java)
-        fun getIntent(context: Context, track: List<Track>, position: Int) =
-            Intent(context, NowPlayingActivity::class.java).apply {
-                putExtra(POSITION_TRACK, position)
-                putParcelableArrayListExtra(
-                    TrackAttributes.TRACK,
-                    track as ArrayList<out Parcelable>
-                )
-            }
+        fun getNowIntent(context: Context) = Intent(context, NowPlayingActivity::class.java)
     }
 }

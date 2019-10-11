@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.fragment_discover.*
+import vn.sunasterisk.music_70.MainActivity
 import vn.sunasterisk.music_70.R
 import vn.sunasterisk.music_70.base.BaseFragment
 import vn.sunasterisk.music_70.constant.Constant
@@ -48,12 +49,13 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
         )
         genrePresent = GenrePresenter(tracksRepository, this)
         genrePresent.getTrack(apiTop, false)
-        sliderTrackAdapter = SliderTrackAdapter({ tracks, index ->
-            startActivity(
-                NowPlayingActivity.getIntent(requireContext(), tracks, index)
-            )
-
-        })
+        sliderTrackAdapter = SliderTrackAdapter { tracks, index ->
+            (activity as MainActivity).getMediaService()?.let { mediaService ->
+                mediaService.addTracks(tracks)
+                mediaService.setCurrentTrack(tracks[index])
+            }
+            startActivity(NowPlayingActivity.getNowIntent(requireContext()))
+        }
         viewPagerTop.adapter = sliderTrackAdapter
         timer = Timer()
 
@@ -65,11 +67,11 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
         genrePresent.getTrack(apiTrending, true)
 
         listSongAdapter = ListSongAdapter({ tracks, index ->
-            startActivity(
-                NowPlayingActivity.getIntent(
-                    requireContext(), tracks, index
-                )
-            )
+            (activity as MainActivity).getMediaService()?.let { mediaService ->
+                mediaService.addTracks(tracks)
+                mediaService.setCurrentTrack(tracks[index])
+            }
+            startActivity(NowPlayingActivity.getNowIntent(requireContext()))
         }, {
             fragmentManager?.let { fragment
                 ->

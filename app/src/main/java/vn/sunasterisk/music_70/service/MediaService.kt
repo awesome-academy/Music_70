@@ -1,12 +1,12 @@
 package vn.sunasterisk.music_70.service
 
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Binder
 import vn.sunasterisk.music_70.data.model.Track
 import vn.sunasterisk.music_70.util.LoopType
-import vn.sunasterisk.music_70.util.ShuffleType
 import vn.sunasterisk.music_70.util.ShuffleType.Companion.NO
 import vn.sunasterisk.music_70.util.StateType
 import java.util.*
@@ -20,7 +20,7 @@ class MediaService : Service(), HandlerListenerPlayMusic {
     private lateinit var binder: BinderService
     private lateinit var currentTrack: Track
     private lateinit var playingMusicListener: PlayingMusicListener
-
+    var idTrackPlaying = 0
     var shuffleType: Int
         get() = managerPlayingMusic.shuffleType
         set(value) {
@@ -145,6 +145,8 @@ class MediaService : Service(), HandlerListenerPlayMusic {
         managerPlayingMusic.seek(duration)
     }
 
+    fun getSizeTracks() = listTrack.size
+
     override fun onBind(intent: Intent) = binder
 
     inner class BinderService : Binder() {
@@ -154,5 +156,6 @@ class MediaService : Service(), HandlerListenerPlayMusic {
     companion object {
         const val NUMBER_NEXT_SONG = 1
         const val ELEMENT_FIRST = 0
+        fun getService(context: Context) = Intent(context, MediaService::class.java)
     }
 }
