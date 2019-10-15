@@ -12,13 +12,11 @@ object StringUtils {
     fun reformatImageUrl(url: String) =
         url.replace(Constant.IMAGE_LARGE, Constant.IMAGE_FULL)
 
-    fun generateSearchUrl(query: String, limit: Int, offset: Int) =
+    fun generateSearchUrl(query: String) =
         String.format(
             Constant.BASE_HEADER_URL.plus(Constant.BASE_SEARCH_URL),
             query,
-            BuildConfig.API_KEY,
-            limit,
-            offset
+            BuildConfig.API_KEY
         )
 
     fun appendString(elementFrist: String, elementSecond: String) = elementFrist + elementSecond

@@ -4,19 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:layout_marginBottom="@dimen/dp_64">
+    android:layout_marginBottom="@dimen/dp_64"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.mymusic.MyMusicFragment">
+        android:paddingTop="@dimen/dp_8">
+
+        <include
+            android:id="@+id/layout_search"
+            layout="@layout/layout_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPagerTop"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_200"
+            android:layout_marginTop="@dimen/dp_48"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +33,7 @@
             android:id="@+id/linearDots"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_32"
+            android:layout_marginTop="@dimen/dp_48"
             android:gravity="end"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,4 +95,3 @@
             tools:listitem="@layout/item_song" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
-

@@ -23,4 +23,7 @@
     <string name="string_add_to_favorite">Add to favorite</string>
     <string name="string_share">Share</string>
     <string name="string_upload_date">Upload Date:</string>
+    <string name="string_no_input">No value input</string>
+    <string name="string_find">Tìm kiếm bài hát yêu thích</string>
+    <string name="string_keyword">Từ khoá</string>
 </resources>
