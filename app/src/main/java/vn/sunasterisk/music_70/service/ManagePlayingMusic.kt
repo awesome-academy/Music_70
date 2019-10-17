@@ -3,7 +3,9 @@ package vn.sunasterisk.music_70.service
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Build
+import vn.sunasterisk.music_70.base.MyApplication
 import vn.sunasterisk.music_70.data.model.Track
 import vn.sunasterisk.music_70.util.LoopType
 import vn.sunasterisk.music_70.util.ShuffleType
@@ -28,7 +30,7 @@ class ManagePlayingMusic : MediaPlayerListener {
         mediaPlayer.reset()
         setContentType()
         try {
-            mediaPlayer.setDataSource(track.streamUrl)
+            mediaPlayer.setDataSource(MyApplication.applicationContext, Uri.parse(track.streamUrl))
             mediaPlayer.setOnErrorListener(listener)
             mediaPlayer.setOnCompletionListener(listener)
             mediaPlayer.setOnPreparedListener(listener)
