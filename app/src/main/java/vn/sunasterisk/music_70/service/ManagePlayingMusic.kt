@@ -7,9 +7,7 @@ import android.net.Uri
 import android.os.Build
 import vn.sunasterisk.music_70.base.MyApplication
 import vn.sunasterisk.music_70.data.model.Track
-import vn.sunasterisk.music_70.util.LoopType
-import vn.sunasterisk.music_70.util.ShuffleType
-import vn.sunasterisk.music_70.util.StateType
+import vn.sunasterisk.music_70.util.*
 import java.io.IOException
 import java.lang.RuntimeException
 
@@ -30,13 +28,23 @@ class ManagePlayingMusic : MediaPlayerListener {
         mediaPlayer.reset()
         setContentType()
         try {
-            mediaPlayer.setDataSource(MyApplication.applicationContext, Uri.parse(track.streamUrl))
-            mediaPlayer.setOnErrorListener(listener)
-            mediaPlayer.setOnCompletionListener(listener)
-            mediaPlayer.setOnPreparedListener(listener)
-            mediaPlayer.prepareAsync()
+            if (track.isOnline) {
+                mediaPlayer.setDataSource(
+                    MyApplication.applicationContext,
+                    Uri.parse(track.streamUrl)
+                )
+            } else {
+                //description is path file
+                mediaPlayer.setDataSource(track.description)
+            }
+            mediaPlayer.apply {
+                setOnErrorListener(listener)
+                setOnCompletionListener(listener)
+                setOnPreparedListener(listener)
+                prepareAsync()
+            }
         } catch (e: IOException) {
-            throw  RuntimeException("${track.title} can't play",e)
+            throw  RuntimeException("${track.title} can't play", e)
         }
     }
 
@@ -81,13 +89,15 @@ class ManagePlayingMusic : MediaPlayerListener {
     fun changeTrack(track: Track, mediaService: MediaService) {
         createMediaPlayer(track, mediaService)
     }
-    fun setLooping(){
-        mediaPlayer.isLooping= true
+
+    fun setLooping() {
+        mediaPlayer.isLooping = true
     }
 
     companion object {
         @Volatile
         private var INSTANCE: ManagePlayingMusic? = null
+
         fun getInstance() =
             INSTANCE ?: ManagePlayingMusic().also { INSTANCE = it }
     }

@@ -26,4 +26,6 @@
     <string name="string_no_input">No value input</string>
     <string name="string_find">Tìm kiếm bài hát yêu thích</string>
     <string name="string_keyword">Từ khoá</string>
+    <string name="alert_permissions_rationale">Ứng dụng cần truy cập vào bộ nhớ thiết bị</string>
+    <string name="string_confirm">YES</string>
 </resources>
