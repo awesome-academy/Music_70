@@ -13,4 +13,6 @@
     <dimen name="dp_100">100dp</dimen>
     <dimen name="dp_48">48dp</dimen>
     <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_128">128dp</dimen>
 </resources>

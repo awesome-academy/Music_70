@@ -28,4 +28,6 @@
     <string name="string_keyword">Từ khoá</string>
     <string name="alert_permissions_rationale">Ứng dụng cần truy cập vào bộ nhớ thiết bị</string>
     <string name="string_confirm">YES</string>
+    <string name="string_notification_name">Notification Ultra</string>
+    <string name="string_notification_description">Notification for Ultra NCT</string>
 </resources>
