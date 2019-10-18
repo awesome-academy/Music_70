@@ -1,6 +1,9 @@
 package vn.sunasterisk.music_70.data.model
 
+import android.database.Cursor
 import android.os.Parcelable
+import android.provider.BaseColumns
+import android.provider.MediaStore
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONObject
 import vn.sunasterisk.music_70.data.remote.TrackAttributes
@@ -41,5 +44,20 @@ data class Track(
         },
         jsonObject.getInt(TrackAttributes.LIKE_COUNT),
         jsonObject.getString(TrackAttributes.DESCRIPTION)
+    )
+
+    constructor(cursor: Cursor) : this(
+        cursor.getInt(cursor.getColumnIndex(BaseColumns._ID)),
+        cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME)),
+        "",
+        cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)),
+        true,
+        "",
+        "",
+        cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)),
+        cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)),
+        0,
+        cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)),
+        false
     )
 }

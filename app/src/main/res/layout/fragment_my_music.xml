@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.mymusic.MyMusicFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:text="This is my music"/>
+        android:id="@+id/textView"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:background="@color/color_primary"
+        android:drawableStart="@drawable/ic_my_music"
+        android:drawableTop="@drawable/ic_my_music"
+        android:drawableEnd="@drawable/ic_my_music"
+        android:drawableBottom="@drawable/ic_my_music"
+        android:gravity="center"
+        android:padding="@dimen/dp_8"
+        android:text="@string/app_name" />
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleMyMusic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_64"
+        android:background="@android:color/white"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_song" />
+</LinearLayout>
