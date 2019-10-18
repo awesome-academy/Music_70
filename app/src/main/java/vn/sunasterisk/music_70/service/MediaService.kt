@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Binder
+import vn.sunasterisk.music_70.BuildConfig
 import vn.sunasterisk.music_70.data.model.Track
 import vn.sunasterisk.music_70.util.LoopType
 import vn.sunasterisk.music_70.util.ShuffleType.Companion.NO
@@ -16,6 +17,7 @@ class MediaService : Service(), HandlerListenerPlayMusic {
     private val managerPlayingMusic by lazy {
         ManagePlayingMusic.getInstance()
     }
+    private val playNotification by lazy { PlayNotification() }
     private var listTrack = emptyList<Track>()
     private lateinit var binder: BinderService
     private lateinit var currentTrack: Track
@@ -60,6 +62,27 @@ class MediaService : Service(), HandlerListenerPlayMusic {
         }
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        intent?.let {
+            when (intent.action) {
+                ACTION_PLAY -> {
+                    playOrPauseTrack()
+                }
+                ACTION_NEXT -> {
+                    nextTrack()
+                }
+                ACTION_PREVIOUS -> {
+                    previousTrack()
+                }
+                ACTION_QUIT -> {
+                    playNotification.stop()
+                    stopSelf()
+                }
+            }
+        }
+        return START_NOT_STICKY
+    }
+
     fun setOnListenerMusic(playingMusicListener: PlayingMusicListener) {
         this.playingMusicListener = playingMusicListener
     }
@@ -67,14 +90,18 @@ class MediaService : Service(), HandlerListenerPlayMusic {
     fun playMusic(track: Track) {
         managerPlayingMusic.createMediaPlayer(track, this)
         managerPlayingMusic.start()
+        playNotification.init(this)
+        playNotification.update(track, true)
     }
 
     fun playOrPauseTrack() {
         if (managerPlayingMusic.state == StateType.PAUSE) {
             managerPlayingMusic.start()
+            playNotification.update(currentTrack, true)
             playingMusicListener.onPlayingStateListener(StateType.PLAY)
         } else {
             managerPlayingMusic.pause()
+            playNotification.update(currentTrack, true)
             playingMusicListener.onPlayingStateListener(StateType.PAUSE)
         }
     }
@@ -127,10 +154,12 @@ class MediaService : Service(), HandlerListenerPlayMusic {
             currentTrack = getNextTrack()
             managerPlayingMusic.changeTrack(getNextTrack(), this)
             addListener(getNextTrack())
+            playNotification.update(getNextTrack(), true)
         } else {
             currentTrack = getRandomTrack()
             managerPlayingMusic.changeTrack(getRandomTrack(), this)
             addListener(getRandomTrack())
+            playNotification.update(getRandomTrack(), true)
         }
     }
 
@@ -156,6 +185,11 @@ class MediaService : Service(), HandlerListenerPlayMusic {
     companion object {
         const val NUMBER_NEXT_SONG = 1
         const val ELEMENT_FIRST = 0
+        private val PACKAGE_NAME = BuildConfig.APPLICATION_ID
+        val ACTION_PLAY = "$PACKAGE_NAME.play"
+        val ACTION_PREVIOUS = "$PACKAGE_NAME.previous"
+        val ACTION_NEXT = "$PACKAGE_NAME.next"
+        val ACTION_QUIT = "$PACKAGE_NAME.quitservice"
         fun getService(context: Context) = Intent(context, MediaService::class.java)
     }
 }
