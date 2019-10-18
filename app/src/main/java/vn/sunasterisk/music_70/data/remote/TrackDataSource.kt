@@ -17,5 +17,6 @@ interface TrackDataSource {
     interface Remote {
         fun getRemoteTracks(api: String, callback: TrackCallback<List<Track>>)
         fun getRemoteGenres(context: Context): List<Genre>
+        fun searchRemoteTracks(api: String, callback: TrackCallback<List<Track>>)
     }
 }

@@ -18,6 +18,7 @@ import vn.sunasterisk.music_70.data.remote.RemoteDataSource
 import vn.sunasterisk.music_70.data.remote.TrackRepository
 import vn.sunasterisk.music_70.ui.nowplaying.BottomSheetFragment
 import vn.sunasterisk.music_70.ui.nowplaying.NowPlayingActivity
+import vn.sunasterisk.music_70.ui.search.SearchActivity
 import vn.sunasterisk.music_70.util.StringUtils
 import java.util.*
 
@@ -83,6 +84,9 @@ class DiscoverFragment : BaseFragment(), GenreContract.View {
     }
 
     override fun registerListeners() {
+        layout_search.setOnClickListener {
+            startActivity(context?.let { it -> SearchActivity.getIntent(it) })
+        }
         viewPagerTop.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }

@@ -8,13 +8,22 @@ class TrackRepository(
     val remote: TrackDataSource.Remote,
     val local: TrackDataSource.Local
 ) : TrackDataSource.Local, TrackDataSource.Remote {
+    override fun searchRemoteTracks(
+        api: String,
+        callback: TrackDataSource.TrackCallback<List<Track>>
+    ) {
+        remote.searchRemoteTracks(api, callback)
+    }
 
-    override fun getRemoteTracks(api: String, callback: TrackDataSource.TrackCallback<List<Track>>) {
+    override fun getRemoteTracks(
+        api: String,
+        callback: TrackDataSource.TrackCallback<List<Track>>
+    ) {
         remote.getRemoteTracks(api, callback)
     }
 
-    override fun getRemoteGenres(context: Context):List<Genre> {
-       return remote.getRemoteGenres(context)
+    override fun getRemoteGenres(context: Context): List<Genre> {
+        return remote.getRemoteGenres(context)
     }
 
     companion object {
@@ -26,3 +35,4 @@ class TrackRepository(
         ): TrackRepository = INSTANCE ?: TrackRepository(remote, local).apply { INSTANCE = this }
     }
 }
+

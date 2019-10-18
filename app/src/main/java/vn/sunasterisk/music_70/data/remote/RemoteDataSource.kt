@@ -7,6 +7,13 @@ import vn.sunasterisk.music_70.data.model.Genre
 import vn.sunasterisk.music_70.data.model.Track
 
 class RemoteDataSource : TrackDataSource.Remote {
+    override fun searchRemoteTracks(
+        api: String,
+        callback: TrackDataSource.TrackCallback<List<Track>>
+    ) {
+        SearchAsyncTask(callback).execute(api)
+    }
+
     override fun getRemoteGenres(context: Context): List<Genre> {
         return listOf(
             Genre(

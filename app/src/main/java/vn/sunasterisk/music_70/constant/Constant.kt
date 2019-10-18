@@ -3,7 +3,7 @@ package vn.sunasterisk.music_70.constant
 object Constant {
     const val BASE_HEADER_URL= "http://api.soundcloud.com/tracks"
     const val BASE_GENRE_URL = "https://api-v2.soundcloud.com/charts?kind=%s&genre=%s&client_id=%s&limit=%d&offset=%d"
-    const val BASE_SEARCH_URL = "?q=%s&client_id=%s&limit=%d&offset=%d"
+    const val BASE_SEARCH_URL = "?q=%s&client_id=%s"
     const val BASE_DOWNLOAD_URL = "/%d/download?client_id=%s"
     const val BASE_STREAM_URL = "/%d/stream?client_id=%s"
     const val BASE_TRENDING_URL = "https://api-v2.soundcloud.com/charts?kind=%s&genre=%s&client_id=%s"
